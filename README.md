@@ -1,6 +1,6 @@
 # Summary
 
-This is a PyTorch implementation of [Neural Arithmetic Logic Units](https://arxiv.org/abs/1808.00508) [1]
+This is a PyTorch implementation of [Neural Arithmetic Logic Units](https://arxiv.org/abs/1808.00508)
 from DeepMind.
 
 The goal of this paper is to *count* using neural networks. Two networks are
