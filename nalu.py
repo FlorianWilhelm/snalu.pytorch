@@ -1,5 +1,4 @@
 import torch
-from torch.nn import functional as F
 from torch import nn
 
 
@@ -17,7 +16,7 @@ class NAC(nn.Module):
             init_fun(param)
 
     def forward(self, x):
-        W = F.tanh(self._W_hat) * F.sigmoid(self._M_hat)
+        W = torch.tanh(self._W_hat) * torch.sigmoid(self._M_hat)
         return x.matmul(W)
 
 
@@ -52,7 +51,7 @@ class NALU(nn.Module):
         self._epsilon = 1e-8
 
     def forward(self, x):
-        g = F.sigmoid(x.matmul(self._G))
+        g = torch.sigmoid(x.matmul(self._G))
 
         m = torch.exp(
             self._nac(torch.log(torch.abs(x) + self._epsilon))
