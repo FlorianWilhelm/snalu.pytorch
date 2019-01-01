@@ -11,6 +11,11 @@ The paper was implemented in the python module `nalu.py`.
 
 ![nalu](images/nac_nalu.png)
 
+
+## *NOTE*
+
+This repository was forked from [arthurdouillard/nalu.pytorch](https://github.com/arthurdouillard/nalu.pytorch) and extended to also support multiplication with negative numbers using Signed Neural Arithmetic Logic Units (SNALUs).
+
 # Tests
 
 Several tests are shown in the paper, I've only implemented what they called
