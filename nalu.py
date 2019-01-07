@@ -42,12 +42,16 @@ class NALU(nn.Module):
     def __init__(self, in_dim, out_dim, init_fun=nn.init.xavier_uniform_):
         super().__init__()
 
-        self._G = nn.Linear(in_dim, 1, bias=False)
+        self._G = nn.Parameter(torch.empty(in_dim, 1))
+        self.register_parameter('G', self._G)
+        init_fun(self._G)
+
         self._nac = NAC(in_dim, out_dim, init_fun=init_fun)
+
         self._epsilon = 1e-8
-       
+
     def forward(self, x):
-        g = torch.sigmoid(self._G(x))
+        g = torch.sigmoid(x.matmul(self._G))
 
         m = torch.exp(
             self._nac(torch.log(torch.abs(x) + self._epsilon))
@@ -63,7 +67,8 @@ class SNALU(nn.Module):
     def __init__(self, in_dim, out_dim, init_fun=nn.init.xavier_uniform_):
         super().__init__()
 
-        self._G = nn.Linear(in_dim, 1)
+        self._G = nn.Parameter(torch.zeros([1, 1]))
+        init_fun(self._G)
         self._nac = NAC(in_dim, out_dim, init_fun=init_fun)
         self._epsilon = 1e-8
 
@@ -71,7 +76,7 @@ class SNALU(nn.Module):
         return torch.sign(x).prod(1).unsqueeze(1)*torch.log(torch.abs(x) + 1.0 + self._epsilon)
         
     def forward(self, x):
-        g = torch.sigmoid(self._G(self.log_rescale(x)))
+        g = torch.sigmoid(self._G)
 
         m = torch.exp(
             self._nac(torch.log(torch.abs(x) + self._epsilon))
