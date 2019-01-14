@@ -5,7 +5,7 @@ support operations on positive real numbers whereas this generalization with the
 of the `sign` operation extends the concept to negative real numbers. Thus the extention
 is named *Signed* NALU or SNALU for short.
 
-The implementation resides in the python module `nalu.py` and PyTorch 1.0 was used. 
+The implementation resides in the python module `snalu.py` and PyTorch 1.0 was used. 
 
 ![nalu](images/nac_nalu.png)
 

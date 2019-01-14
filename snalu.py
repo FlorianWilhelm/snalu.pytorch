@@ -71,9 +71,6 @@ class SNALU(nn.Module):
         init_fun(self._G)
         self._nac = NAC(in_dim, out_dim, init_fun=init_fun)
         self._epsilon = 1e-8
-
-    def log_rescale(self, x):
-        return torch.sign(x).prod(1).unsqueeze(1)*torch.log(torch.abs(x) + 1.0 + self._epsilon)
         
     def forward(self, x):
         g = torch.sigmoid(self._G)
